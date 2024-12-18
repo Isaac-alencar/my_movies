@@ -13,6 +13,11 @@ services:
     volumes:
       - ".:/usr/src/app"
       - "gems_data:/usr/local/bundle"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    env_file:
+      - ./.env
     depends_on:
       - db
 
