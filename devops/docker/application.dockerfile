@@ -50,4 +50,7 @@ FROM build
 # Copying the rest of the code
 COPY --from=build /usr/src/app /usr/src/app
 
+# Entrypoint prepares the database.
+ENTRYPOINT ["/usr/src/app/bin/docker-entrypoint"]
+
 CMD ["./bin/dev"]

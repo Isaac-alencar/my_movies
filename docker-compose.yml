@@ -1,0 +1,35 @@
+name: my_movies_app
+
+services:
+  web:
+    tty: true
+    stdin_open: true
+    image: my-movies-app
+    build: 
+      context: .
+      dockerfile: devops/docker/application.dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ".:/usr/src/app"
+      - "gems_data:/usr/local/bundle"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13-alpine
+    restart: always
+    volumes:
+      - "pg_data:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    env_file:
+      - ./.env
+    ports:
+      - 5432:5432
+
+volumes:
+  gems_data:
+  pg_data:
+    driver: local
