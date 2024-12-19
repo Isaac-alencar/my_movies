@@ -5,7 +5,7 @@ ARG RUBY_VERSION=3.3.0
 FROM ruby:$RUBY_VERSION-slim AS base
 
 # Setting the work directory
-ARG APP_HOME=/usr/src/app
+ARG APP_HOME=/rails
 WORKDIR $APP_HOME
 
 # Install base packages
@@ -48,9 +48,9 @@ COPY . .
 FROM build
 
 # Copying the rest of the code
-COPY --from=build /usr/src/app /usr/src/app
+COPY --from=build /rails /rails
 
 # Entrypoint prepares the database.
-ENTRYPOINT ["/usr/src/app/bin/docker-entrypoint"]
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 CMD ["./bin/dev"]
