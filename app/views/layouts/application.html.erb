@@ -18,6 +18,8 @@
   <body>
     <main>
       <%= yield %>
+      <%= render 'shared/alert', locals: { alert: alert } if alert %>
+      <%= render 'shared/notice', locals: { notice: notice } if notice %>
     </main>
   </body>
 </html>
