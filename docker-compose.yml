@@ -4,13 +4,14 @@ services:
   web:
     tty: true
     stdin_open: true
+    restart: always
     build: 
       context: .
       dockerfile: devops/docker/application.dockerfile
     ports:
       - 3000:3000
     volumes:
-      - ".:/usr/src/app"
+      - ".:/rails"
       - "gems_data:/usr/local/bundle"
     environment:
       - POSTGRES_USER=${POSTGRES_USER}

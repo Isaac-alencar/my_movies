@@ -15,9 +15,11 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="bg-slate-900">
-    <main class="container mx-auto mt-28 px-5 ">
+  <body>
+    <main>
       <%= yield %>
+      <%= render 'shared/alert', locals: { alert: alert } if alert %>
+      <%= render 'shared/notice', locals: { notice: notice } if notice %>
     </main>
   </body>
 </html>
