@@ -61,3 +61,8 @@ end
 gem "devise", "~> 4.9"
 
 gem "pry-byebug", "~> 3.10"
+gem "faraday", "~> 2.12"
+
+# Sidekiq https://github.com/sidekiq/sidekiq/wiki/Getting-Started
+gem "sidekiq"
+gem "sidekiq-cron"

@@ -87,7 +87,6 @@
     "name": "Western"
   }
 ].each do |movie_genre|
-  binding.pry
   genre = Genre.create(name: movie_genre[:name])
-  genre.update_column(:id, movie_genre[:id]) # setting id to be the same as tmdb
+  genre.update_attribute(:id, movie_genre[:id]) # setting id to be the same as tmdb
 end
