@@ -16,10 +16,15 @@ services:
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - TMDB_API_KEY=${TMDB_API_KEY}
     env_file:
       - ./.env
     depends_on:
       - db
+      - redis
 
   db:
     image: postgres:13-alpine
@@ -34,7 +39,41 @@ services:
     ports:
       - 5432:5432
 
+  redis:
+    image: redis:7.2.4-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    env_file:
+      - ./.env
+    command: redis-server --loglevel warning
+    volumes: 
+      - "redis_data:/var/lib/redis_data"
+
+  sidekiq:
+    build:
+      context: .
+      dockerfile: devops/docker/application.dockerfile
+    command: bundle exec sidekiq -q default fetch_api_data
+    volumes:
+      - ".:/rails"
+      - "gems_data:/usr/local/bundle"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DATABASE=my_movies_development
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=db
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - TMDB_API_KEY=${TMDB_API_KEY}
+    depends_on:
+      - "db"
+      - "redis"
+
 volumes:
   gems_data:
   pg_data:
+    driver: local
+  redis_data:
     driver: local
