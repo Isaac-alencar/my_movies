@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: my_movies
+    runtime: ruby
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec rails server"
