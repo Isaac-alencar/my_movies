@@ -1,13 +1,14 @@
-require 'sidekiq/cron/job'
+require "yaml"
+require "sidekiq/cron/job"
 
 redis_url = ENV["REDIS_URL"]
 
 Sidekiq.configure_server do |config|
-  config.redis = redis_url
+  config.redis = { url: redis_url }
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = redis_url
+  config.redis = { url: redis_url }
 end
 
 schedule_file = "config/schedule.yml"
