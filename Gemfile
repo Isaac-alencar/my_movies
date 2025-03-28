@@ -60,7 +60,7 @@ end
 
 gem "devise", "~> 4.9"
 
-gem "pry-byebug", "~> 3.10"
+gem "pry-byebug", "~> 3.11"
 gem "faraday", "~> 2.12"
 
 # Sidekiq https://github.com/sidekiq/sidekiq/wiki/Getting-Started
