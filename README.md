@@ -1,24 +1,7 @@
-# README
+# My Movies
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+---
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Application to test `full-text-search` Opensearch's feature
+- Fetches `TMDB` API in a background-job and persists both on database and opensearch
+- It uses the `full-text-search` to search across all movies saves on database considering: title, description(sinopse) and more
